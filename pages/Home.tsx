@@ -43,34 +43,44 @@ const Home: React.FC = () => {
 
           {/* Hero Image with Annotation */}
           <div className="order-1 md:order-2 relative flex justify-center z-10">
-            <div className="relative group w-full max-w-[550px]">
-              {/* Photo Container - Landscape Aspect Ratio for group photo */}
+            <div className="relative group w-full max-w-[600px]">
+              {/* Photo Container - Landscape Aspect Ratio */}
               <div className="aspect-[4/3] bg-gray-800 rounded-lg overflow-hidden shadow-2xl relative border border-white/10">
                  <img 
-                   src="./connor_godmother.jpg" 
+                   src="connor_godmother.jpg" 
                    alt="Connor with Silicon Valley Godmother" 
-                   className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-500"
+                   className="w-full h-full object-cover object-center opacity-90 group-hover:opacity-100 transition-opacity duration-500"
+                   onError={(e) => {
+                     const target = e.target as HTMLImageElement;
+                     target.onerror = null;
+                     target.src = "https://placehold.co/800x600/1a1a1a/white?text=Photo+Not+Found\nCheck+File+Name";
+                   }}
                  />
               </div>
 
               {/* Hand Drawn Elements (SVG Overlay) */}
               <div className="absolute inset-0 pointer-events-none">
                 {/* 
-                  Adjusted ViewBox to 500x375 to match approx 4:3 aspect ratio.
-                  Coordinates for the circle shifted to highlight the person on the right.
+                  ViewBox 500x375 (4:3 ratio).
+                  Targeting the person on the right side.
                 */}
                 <svg className="absolute w-full h-full" viewBox="0 0 500 375">
+                  {/* Circle around the person on the right */}
                   <path 
-                    d="M 280 120 Q 380 90 420 160 Q 430 260 360 280 Q 270 260 280 120" 
+                    d="M 290 100 
+                       Q 420 70 450 160 
+                       Q 460 280 380 310 
+                       Q 280 300 290 100" 
                     fill="none" 
                     stroke="white" 
                     strokeWidth="3" 
-                    strokeDasharray="10,5"
-                    className="opacity-90 drop-shadow-lg animate-pulse"
+                    strokeDasharray="12,6"
+                    className="opacity-90 drop-shadow-lg"
                   />
-                  {/* Arrow pointing to the circle */}
+                  
+                  {/* Arrow pointing from top-right text to the circle */}
                   <path 
-                    d="M 450 60 Q 440 100 420 130" 
+                    d="M 440 60 Q 430 90 410 110" 
                     fill="none" 
                     stroke="white" 
                     strokeWidth="3"
@@ -83,10 +93,10 @@ const Home: React.FC = () => {
                   </defs>
                   
                   {/* Handwritten Text */}
-                  <text x="380" y="50" fill="white" fontSize="18" className="hand-drawn-text font-bold" style={{textShadow: '2px 2px 4px black'}}>
+                  <text x="390" y="50" fill="white" fontSize="20" className="hand-drawn-text font-bold" style={{textShadow: '2px 2px 4px black'}}>
                     I'm Here!
                   </text>
-                  <text x="20" y="350" fill="white" fontSize="14" className="hand-drawn-text bg-black/50 px-2" style={{textShadow: '2px 2px 4px black'}}>
+                  <text x="20" y="350" fill="white" fontSize="14" className="hand-drawn-text bg-black/60 px-3 py-1 rounded" style={{textShadow: '1px 1px 2px black'}}>
                     with Silicon Valley Godmother
                   </text>
                 </svg>
